@@ -524,6 +524,12 @@ void ExportDialog::replaceStreamDetailsVars(QString &m, StreamDetails *streamDet
     m.replace("{{ FILEINFO.AUDIO.CODEC }}", audioCodecs.join("|"));
     m.replace("{{ FILEINFO.AUDIO.CHANNELS }}", audioChannels.join("|"));
     m.replace("{{ FILEINFO.AUDIO.LANGUAGE }}", audioLanguages.join("|"));
+
+    QStringList subtitleLanguages;
+    for (int i = 0, n = streamDetails->subtitleDetails().count(); i < n; ++i) {
+        subtitleLanguages << streamDetails->subtitleDetails().at(i).value("language");
+    }
+    m.replace("{{ FILEINFO.SUBTITLES.LANGUAGE }}", subtitleLanguages.join("|"));
 }
 
 void ExportDialog::replaceSingleBlock(QString &m, QString blockName, QString itemName, QStringList replaces)
